@@ -49,4 +49,4 @@ The next step is to establish my individual subset of work, then adapt selected 
 
 **Observed in the original screenshot:** the heading reads Punkty informacyjne, while O funduszach is highlighted. **Expected:** the active navigation state should identify the displayed section. **Suggested severity:** minor usability issue because it can confuse orientation without demonstrating blocked access. Priority was not established.
 
-This image is preserved unchanged from the team report of 17 June 2022. The steps and severity explanation are editorial reconstruction, not a newly executed test. The screenshot does not establish which individual tester found the issue. The English case study was adapted with Codex assistance on 13 September 2026.
+This image is preserved unchanged from the team report of 17 June 2022. The steps and severity explanation are editorial reconstruction, not a newly executed test. The screenshot does not establish which individual tester found the issue. The English case study was adapted on 13 September 2026.
