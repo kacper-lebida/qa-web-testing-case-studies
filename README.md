@@ -10,11 +10,11 @@ The report's first page names both testers and records our environments. Selecte
 
 **[Read the anonymized report excerpts (4 pages)](anonymized-report-excerpts.pdf)**
 
-This is a joint report: I contributed to the testing and reporting alongside Oliwier. The document supports our participation and the recorded findings, but does not assign each individual bug to one tester. The freelance period describes my work history; this sample is one engagement, not a record of every assignment.
+This is a joint report: I contributed to the testing and reporting alongside Oliwier. Individual findings are attributed to the joint report.
 
 ## Scope and approach
 
-We tested the externally visible behavior of a legacy business website: navigation, interactive controls, a price calculator, page layout and content availability across browsers. We varied inputs and compared actual behavior with expected user-facing results. This was **black-box testing**; this case does not claim access to backend implementation or source-level test coverage.
+We tested the externally visible behavior of a legacy business website: navigation, interactive controls, a price calculator, page layout and content availability across browsers. We varied inputs and compared actual behavior with expected user-facing results. This was **black-box testing**; we assessed user-facing behavior.
 
 The report separates testing with a Flash-capable browser from testing in contemporary browsers. It also contains an additional HTML-validator review and modernization recommendations; those activities are distinct from the behavioral black-box findings shown here.
 
@@ -23,11 +23,11 @@ The report separates testing with a Flash-capable browser from testing in contem
 | Kacper Lebida | Windows 11, 21H2 | Chrome 112.0.5615.138; FlashBrowser 0.8.1 |
 | Oliwier | Windows 11, 21H2 | Opera GX core 97.0.4719.89; FlashBrowser 0.8.1 |
 
-These are historical environments, not installation recommendations. No new tests were run against the client's website while preparing this portfolio.
+These environments describe the original engagement.
 
 ## Selected findings
 
-The steps below reconstruct the scenarios from the original descriptions and screenshots. They are not fresh executions. The original report labels these findings critical; the portfolio assessments below explain impact more narrowly. Priority and later fix status are unknown.
+The steps below reconstruct the scenarios from the original descriptions and screenshots. The original report labels these findings critical; the portfolio assessments below explain impact more narrowly. Priority and later fix status are unknown.
 
 ### BB-01 - Reset does not clear the calculator
 
@@ -39,7 +39,7 @@ The steps below reconstruct the scenarios from the original descriptions and scr
 
 **Expected:** entered quantities and the calculated result return to their initial state.
 
-**Reported actual:** Reset does not work. The screenshot shows quantity `123` and total `3690 zl`. A single screenshot supports the recorded state, while the written report supplies the failed-action observation; it is not a before/after recording.
+**Reported actual:** Reset does not work. The screenshot shows quantity `123` and total `3690 zl`. The written report records the failed reset action.
 
 **Impact:** users cannot reliably clear the form and may reuse stale values. Suggested severity: medium.
 
@@ -57,7 +57,7 @@ The steps below reconstruct the scenarios from the original descriptions and scr
 
 **Observed in the source:** quantity `-1` is accepted and the displayed total is `-30 zl`.
 
-**Impact:** the calculator generates a nonsensical estimate from invalid input. Suggested severity: medium; no completed purchase or financial loss is established by the report.
+**Impact:** the calculator generates a nonsensical estimate from invalid input. Suggested severity: medium.
 
 ![Source finding ID 24](report-negative-value.png)
 
@@ -71,7 +71,7 @@ The steps below reconstruct the scenarios from the original descriptions and scr
 
 **Expected:** only valid quantities are used; invalid entries receive clear feedback.
 
-**Observed in the source:** fields contain letters and symbols while the displayed total is `0 zl`. The report flags missing input restrictions. The screenshot alone does not establish the underlying parsing behavior.
+**Observed in the source:** fields contain letters and symbols while the displayed total is `0 zl`. The report flags missing input restrictions.
 
 **Impact:** invalid input can be mistaken for a valid zero-cost estimate. Suggested severity: medium.
 
@@ -81,4 +81,4 @@ The steps below reconstruct the scenarios from the original descriptions and scr
 
 Our deliverable was a report documenting actual/expected behavior, severity labels, screenshots, browser differences and improvement recommendations. The 166-page length is not a count of unique defects: identifiers restart between sections and some entries repeat. No claim is made that the client implemented recommendations or that the reported defects exist today.
 
-The public PDF contains only selected flattened excerpts. Client name, address, phone number, email, identifying headers and unrelated business details are excluded; authors and test environments remain as evidence. The original full client report is not published.
+The public PDF contains only selected flattened excerpts. Client-identifying details are excluded; authors and test environments are retained.
