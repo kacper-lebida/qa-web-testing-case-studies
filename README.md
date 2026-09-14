@@ -82,5 +82,3 @@ The steps below reconstruct the scenarios from the original descriptions and scr
 Our deliverable was a report documenting actual/expected behavior, severity labels, screenshots, browser differences and improvement recommendations. The 166-page length is not a count of unique defects: identifiers restart between sections and some entries repeat. No claim is made that the client implemented recommendations or that the reported defects exist today.
 
 The public PDF contains only selected flattened excerpts. Client name, address, phone number, email, identifying headers and unrelated business details are excluded; authors and test environments remain as evidence. The original full client report is not published.
-
-The older `original-navigation-finding.png` file belongs to a separate 2022 public-website exercise and is not evidence for this freelance engagement. This README replaces that older exercise as the repository's main case study.
