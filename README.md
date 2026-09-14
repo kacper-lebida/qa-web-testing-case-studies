@@ -1,52 +1,86 @@
-# Web Testing Case Study
+# Freelance QA - Black-box Web Testing
 
-A historical manual-testing case study based on a team report for the European Funds website, dated **17 June 2022**. **Kacper Lebida** is listed as one of nine testers.
+Manual functional, usability and browser-compatibility testing carried out by **Kacper Lebida and Oliwier** during my freelance QA work in **2023-2024**. This case study presents an anonymized example from our original 166-page report, which references testing in 2023.
 
-## Scope and environment
+## Evidence of our work
 
-The report covers navigation, search and filtering, feedback forms, responsive layout and other site interactions. It describes functional, usability and boundary-value testing.
+The report's first page names both testers and records our environments. Selected original report excerpts are included here, with client-identifying headings and contact details excluded.
 
-My recorded environment was Windows 11 build 22000.675 and Chrome 102.0.5005.115. These versions identify the historical test context; the reported findings have not been rechecked against the current website.
+![Original report: testers and environments](report-authors.png)
 
-## Contribution and attribution
+**[Read the anonymized report excerpts (4 pages)](anonymized-report-excerpts.pdf)**
 
-I participated in the team exercise. The report lists testers and their environments, but the extracted text does not reliably assign every defect to an individual. This repository therefore presents team findings and does not claim that I personally discovered all of them.
+This is a joint report: I contributed to the testing and reporting alongside Oliwier. The document supports our participation and the recorded findings, but does not assign each individual bug to one tester. The freelance period describes my work history; this sample is one engagement, not a record of every assignment.
 
-## Representative findings
+## Scope and approach
 
-The descriptions below are editorial summaries of the historical report. They are not fresh reproductions.
+We tested the externally visible behavior of a legacy business website: navigation, interactive controls, a price calculator, page layout and content availability across browsers. We varied inputs and compared actual behavior with expected user-facing results. This was **black-box testing**; this case does not claim access to backend implementation or source-level test coverage.
 
-| Reference | Scenario | Reported actual result | Expected result |
-| --- | --- | --- | --- |
-| FORM-01 | Submit invalid feedback, correct the fields and submit again | The corrected form remained blocked | A valid submission can proceed after correction |
-| SEARCH-01 | Navigate to a three-digit search-results page | Pagination numbers overlap | Page numbers remain readable |
-| NAV-01 | Open the information-points section | A different navigation item is highlighted | The current section is highlighted |
+The report separates testing with a Flash-capable browser from testing in contemporary browsers. It also contains an additional HTML-validator review and modernization recommendations; those activities are distinct from the behavioral black-box findings shown here.
 
-The identifiers above are new editorial references. The source repeats some numeric IDs; they should not be mistaken for preserved tracker identifiers.
+| Tester | OS recorded in the report | Browsers recorded in the report |
+| --- | --- | --- |
+| Kacper Lebida | Windows 11, 21H2 | Chrome 112.0.5615.138; FlashBrowser 0.8.1 |
+| Oliwier | Windows 11, 21H2 | Opera GX core 97.0.4719.89; FlashBrowser 0.8.1 |
 
-## What the review revealed
+These are historical environments, not installation recommendations. No new tests were run against the client's website while preparing this portfolio.
 
-The report has useful actual/expected descriptions, environment details and visual evidence. To make it stronger for a recruiter, each selected case needs clear preconditions, numbered reproduction steps, an evidence reference and a reasoned severity assessment.
+## Selected findings
 
-Some entries are usability suggestions rather than confirmed functional defects. Severity labels should be reviewed instead of copied mechanically. A modernized report should also distinguish severity from scheduling priority and avoid assuming that a delayed email is necessarily a defect without a delivery requirement.
+The steps below reconstruct the scenarios from the original descriptions and screenshots. They are not fresh executions. The original report labels these findings critical; the portfolio assessments below explain impact more narrowly. Priority and later fix status are unknown.
 
-## Evidence status
+### BB-01 - Reset does not clear the calculator
 
-The report's text and the selected navigation screenshot below have been reviewed. Other findings remain text summaries without selected screenshot evidence in this package. No new requests, form submissions or tests were made against the live website. Personal contact details and other testers' machine specifications are omitted.
+**Source:** page 26, Flash section, ID 23.
 
-The next step is to establish my individual subset of work, then adapt selected cases with their original evidence and clear historical dates.
+1. Open the price calculator in the tested Flash-capable environment.
+2. Enter a quantity, then calculate the total.
+3. Activate `ZERUJ` (Reset).
 
-## NAV-01: historical navigation mismatch
+**Expected:** entered quantities and the calculated result return to their initial state.
 
-![Information points page with a different navigation item highlighted](original-navigation-finding.png)
+**Reported actual:** Reset does not work. The screenshot shows quantity `123` and total `3690 zl`. A single screenshot supports the recorded state, while the written report supplies the failed-action observation; it is not a before/after recording.
 
-**Precondition:** the 2022 report's website version, displaying the Information Points section.
+**Impact:** users cannot reliably clear the form and may reuse stale values. Suggested severity: medium.
 
-**Review procedure reconstructed from the report:**
-1. Navigate to Information Points (Punkty informacyjne).
-2. Compare the page heading with the active item in the main navigation.
-3. Record the visible active state.
+![Source finding ID 23](report-reset.png)
 
-**Observed in the original screenshot:** the heading reads Punkty informacyjne, while O funduszach is highlighted. **Expected:** the active navigation state should identify the displayed section. **Suggested severity:** minor usability issue because it can confuse orientation without demonstrating blocked access. Priority was not established.
+### BB-02 - A negative quantity produces a negative quote
 
-This image is preserved unchanged from the team report of 17 June 2022. The steps and severity explanation are editorial reconstruction, not a newly executed test. The screenshot does not establish which individual tester found the issue. The English case study was adapted on 13 September 2026.
+**Source:** page 27, Flash section, ID 24.
+
+1. Open the price calculator.
+2. Enter `-1` for an item with a displayed unit price of `30 zl`.
+3. Activate `OBLICZ` (Calculate).
+
+**Expected:** reject a negative service quantity and provide a clear validation message.
+
+**Observed in the source:** quantity `-1` is accepted and the displayed total is `-30 zl`.
+
+**Impact:** the calculator generates a nonsensical estimate from invalid input. Suggested severity: medium; no completed purchase or financial loss is established by the report.
+
+![Source finding ID 24](report-negative-value.png)
+
+### BB-03 - Quantity fields accept letters and symbols
+
+**Source:** page 28, Flash section, ID 25.
+
+1. Open the price calculator.
+2. Enter letters and symbols into quantity fields.
+3. Attempt to calculate the result.
+
+**Expected:** only valid quantities are used; invalid entries receive clear feedback.
+
+**Observed in the source:** fields contain letters and symbols while the displayed total is `0 zl`. The report flags missing input restrictions. The screenshot alone does not establish the underlying parsing behavior.
+
+**Impact:** invalid input can be mistaken for a valid zero-cost estimate. Suggested severity: medium.
+
+![Source finding ID 25](report-invalid-input.png)
+
+## Deliverable and limitations
+
+Our deliverable was a report documenting actual/expected behavior, severity labels, screenshots, browser differences and improvement recommendations. The 166-page length is not a count of unique defects: identifiers restart between sections and some entries repeat. No claim is made that the client implemented recommendations or that the reported defects exist today.
+
+The public PDF contains only selected flattened excerpts. Client name, address, phone number, email, identifying headers and unrelated business details are excluded; authors and test environments remain as evidence. The original full client report is not published.
+
+The older `original-navigation-finding.png` file belongs to a separate 2022 public-website exercise and is not evidence for this freelance engagement. This README replaces that older exercise as the repository's main case study.
